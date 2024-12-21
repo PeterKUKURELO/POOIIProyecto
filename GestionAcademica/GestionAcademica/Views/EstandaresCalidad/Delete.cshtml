@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //deshabilita la plantilla principal
+    //Layout = null;
+}
+
+@section scripts {
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Evita el envío automático del formulario
+
+            // Muestra SweetAlert de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esta acción!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    e.target.submit(); // Envía el formulario si el usuario confirma
+                }
+            });
+        });
+    </script>
+}
+
+
+@model GestionAcademica.Models.EstandarCalidad
+
+<div class="container mt-5">
+    <h2 class="text-danger">¿Estás seguro que deseas eliminar este estándar?</h2>
+    <p class="text-muted">Esta acción no se puede deshacer.</p>
+
+    <div class="card shadow mt-4">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold text-secondary">ID:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.IdEstandar)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Nombre:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Descripción:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Descripcion)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Estado:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Estado)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Fecha de Creación:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaCreacion)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Fecha Límite:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaLimite)</dd>
+            </dl>
+        </div>
+
+        <div class="card-footer text-end">
+            @using (Html.BeginForm("DeleteConfirmed", "EstandaresCalidad", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.IdEstandar)
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Eliminar
+                </button>
+            }
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary ms-2" })
+        </div>
+    </div>
+</div>

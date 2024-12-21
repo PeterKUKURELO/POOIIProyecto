@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<GestionAcademica.Models.Auditoria>
+
+<div class="container mt-5">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary fw-bold">Listado de Auditorías</h2>
+        @Html.ActionLink("Crear Nueva", "Create", null, new { @class = "btn btn-success fw-bold" })
+    </div>
+
+    <!-- Tabla con estilos -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.IdAuditoria)</th>
+                    <th>@Html.DisplayNameFor(model => model.IdEstandar)</th>
+                    <th>@Html.DisplayNameFor(model => model.EstandarCalidad)</th>
+                    <th>@Html.DisplayNameFor(model => model.Observaciones)</th>
+                    <th>@Html.DisplayNameFor(model => model.FechaAuditoria)</th>
+                    <th>@Html.DisplayNameFor(model => model.Resultado)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <!-- ID Auditoría -->
+                        <td>@item.IdAuditoria</td>
+
+                        <!-- ID Estándar -->
+                        <td>@item.IdEstandar</td>
+
+                        <td>@item.EstandarCalidad.Nombre</td>
+
+                        <!-- Observaciones -->
+                        <td>@item.Observaciones</td>
+
+                        <!-- Fecha Auditoría -->
+                        <td>@item.FechaAuditoria.ToString("yyyy-MM-dd")</td>
+
+                        <!-- Resultado con colores dinámicos -->
+                        <td>
+                            @if (item.Resultado.Equals("Positivo", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <span class="badge bg-success p-2">Positivo</span>
+                            }
+                            else if (item.Resultado.Equals("Negativo", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <span class="badge bg-danger p-2">Negativo</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary p-2">@item.Resultado</span>
+                            }
+                        </td>
+
+                        <!-- Botones de acción -->
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.IdAuditoria }, new { @class = "btn btn-sm btn-warning me-1" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.IdAuditoria }, new { @class = "btn btn-sm btn-info me-1" })
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.IdAuditoria }, new { @class = "btn btn-sm btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

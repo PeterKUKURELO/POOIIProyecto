@@ -1,0 +1,43 @@
+﻿@model GestionAcademica.Models.Usuario
+
+<div class="container mt-5">
+    <h2 class="text-primary mb-4">Detalles del Usuario</h2>
+
+    <!-- Tarjeta principal para mostrar detalles -->
+    <div class="card shadow">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold text-secondary">ID:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.IdUsuario)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Nombre:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Código de Usuario:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.CodUsuario)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Contraseña:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Password)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Rol:</dt>
+                <dd class="col-sm-9">
+                    <span class="badge
+                        @if (Model.Rol.Nombre == "Administrador") {
+                            @:bg-danger
+                        } else if (Model.Rol.Nombre == "Docente") {
+                            @:bg-primary
+                        } else if (Model.Rol.Nombre == "Coordinador") {
+                            @:bg-success
+                        } text-white">
+                        @Html.DisplayFor(model => model.Rol.Nombre)
+                    </span>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="card-footer text-end">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.IdUsuario }, new { @class = "btn btn-primary me-2" })
+            @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>

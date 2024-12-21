@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = "Ingreso al Sistema";
+}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100" style="background-color: #f0f2f5;">
+    <div class="card shadow-sm border-0" style="width: 400px; border-radius: 15px;">
+        <!-- Encabezado -->
+        <div class="card-header text-center" style="background: linear-gradient(90deg, #007bff, #0062cc); color: white; border-radius: 15px 15px 0 0;">
+            <h3 class="mb-0" style="font-weight: 600;">Ingreso al Sistema</h3>
+        </div>
+        <!-- Cuerpo -->
+        <div class="card-body" style="background-color: #ffffff; border-radius: 0 0 15px 15px;">
+            <form action="@Url.Action("Index", "Inicio")" method="post" class="needs-validation" novalidate>
+                <!-- Usuario -->
+                <div class="mb-4">
+                    <label for="txtUsu" class="form-label" style="font-weight: bold; color: #495057;">Usuario</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light" id="user-icon">
+                            <i class="bi bi-person-fill text-primary"></i>
+                        </span>
+                        <input type="text" class="form-control" id="txtUsu" name="usuario" placeholder="Ingrese su usuario" required>
+                        <div class="invalid-feedback">Por favor, ingrese su usuario.</div>
+                    </div>
+                </div>
+                <!-- Contraseña -->
+                <div class="mb-4">
+                    <label for="txtCla" class="form-label" style="font-weight: bold; color: #495057;">Contraseña</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light" id="password-icon">
+                            <i class="bi bi-lock-fill text-primary"></i>
+                        </span>
+                        <input type="password" class="form-control" id="txtCla" name="password" placeholder="Ingrese su contraseña" required>
+                        <div class="invalid-feedback">Por favor, ingrese su contraseña.</div>
+                    </div>
+                </div>
+                <!-- Botón -->
+                <div class="d-grid">
+                    <button class="btn btn-primary fw-bold" type="submit" style="border-radius: 5px;">Ingresar</button>
+                </div>
+            </form>
+
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger mt-3 text-center" style="border-radius: 10px;">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+        </div>
+        <!-- Pie de Página -->
+        <div class="card-footer text-center bg-light" style="border-radius: 0 0 15px 15px;">
+            <small class="text-muted">© 2024 Sistema Académico. Todos los derechos reservados.</small>
+        </div>
+    </div>
+</div>
+
+<!-- Validación de Formulario -->
+<script>
+    (() => {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>

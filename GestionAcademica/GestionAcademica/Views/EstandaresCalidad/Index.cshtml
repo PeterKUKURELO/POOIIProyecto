@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Mensaje != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '@ViewBag.Mensaje',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+}
+
+@if (ViewBag.Error != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: '@ViewBag.Error',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+}
+
+@model IEnumerable<GestionAcademica.Models.EstandarCalidad>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary fw-bold">Estándares de Calidad</h2>
+        @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-success" })
+    </div>
+
+    <!-- Tabla con bordes redondeados -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover shadow-sm" style="border-radius: 10px; overflow: hidden;">
+            <thead class="table-dark">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.IdEstandar)</th>
+                    <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                    <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                    <th>@Html.DisplayNameFor(model => model.FechaCreacion)</th>
+                    <th>@Html.DisplayNameFor(model => model.FechaLimite)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdEstandar</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Descripcion</td>
+                        <td>
+                            <span class="
+                                @if (item.Estado == "En Proceso") {
+                                    @:badge bg-info
+                                } else if (item.Estado == "Pendiente") {
+                                    @:badge bg-danger
+                                } else if (item.Estado == "Completado") {
+                                    @:badge bg-success
+                                }
+                            text-white p-2 rounded">
+                                @item.Estado
+                            </span>
+                        </td>
+                        <td>@item.FechaCreacion.ToString("yyyy-MM-dd")</td>
+                        <td>@item.FechaLimite.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.IdEstandar }, new { @class = "btn btn-sm btn-warning me-1" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.IdEstandar }, new { @class = "btn btn-sm btn-info me-1" })
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.IdEstandar }, new { @class = "btn btn-sm btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

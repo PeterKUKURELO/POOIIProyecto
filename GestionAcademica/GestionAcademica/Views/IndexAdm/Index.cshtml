@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Panel de Administración";
+}
+
+<main>
+    <!-- Encabezado -->
+    <section class="mb-4">
+        <h1 class="text-primary text-center">Bienvenido Administrador - @ViewBag.NombreUsuario</h1>
+        <p class="text-center lead">
+            Desde este panel puedes gestionar usuarios, estándares de calidad, indicadores de desempeño y auditorías.
+        </p>
+    </section>
+
+    <!-- Tarjetas resumen -->
+    <section class="mb-5">
+        <div class="row text-center">
+            <!-- Usuarios -->
+            <div class="col-md-4 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h3 class="text-secondary">Gestión de Usuarios</h3>
+                        <p>Administra roles y usuarios registrados en el sistema.</p>
+                        <p>
+                            @Html.ActionLink("Ir a Usuarios", "Index", "Usuario", new { area = "" }, new { @class = "btn btn-primary" })
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estándares -->
+            <div class="col-md-4 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h3 class="text-secondary">Estándares de Calidad</h3>
+                        <p>Gestiona los estándares de calidad académica.</p>
+                        <p>
+                            @Html.ActionLink("Ir a Estándares", "Index", "EstandaresCalidad", new { area = "" }, new { @class = "btn btn-primary" })
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Indicadores -->
+            <div class="col-md-4 mb-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h3 class="text-secondary">Indicadores de Desempeño</h3>
+                        <p>Monitorea el progreso de los estándares.</p>
+                        <p>
+                            @Html.ActionLink("Ir a Indicadores", "Index", "IndicadoresDesempeno", new { area = "" }, new { @class = "btn btn-primary" })
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabla Resumen General -->
+    <section>
+        <h2 class="text-center text-info fw-bold">Resumen General</h2>
+        <p class="text-muted text-center">Información clave de auditorías, estándares e indicadores.</p>
+
+        <div class="table-responsive mt-3">
+            <table class="table table-striped table-hover shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Estándar</th>
+                        <th>Indicador</th>
+                        <th>Resultado Actual</th>
+                        <th>Responsable</th>
+                        <th>Última Auditoría</th>
+                        <th>Resultado Auditoría</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Estandar.Nombre</td>
+                            <td>@item.Indicador.Nombre</td>
+                            <td>@item.Indicador.ResultadoActual</td>
+                            <td>@item.Responsable.Nombre</td>
+                            <td>@item.FechaAuditoria</td>
+                            <td>
+                                <span class="
+                                    @if (item.ResultadoAuditoria == "Positivo") {
+                                        @:badge bg-success
+                                    } else if (item.ResultadoAuditoria == "Negativo") {
+                                        @:badge bg-danger
+                                    } else {
+                                        @:badge bg-warning
+                                    }">
+                                    @item.ResultadoAuditoria
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+

@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //deshabilita la plantilla principal
+    //Layout = null;
+}
+
+@model GestionAcademica.Models.EstandarCalidad
+
+<div class="container mt-5">
+    <h2 class="text-primary mb-4">Detalles del Estándar de Calidad</h2>
+
+    <!-- Tarjeta principal para mostrar detalles -->
+    <div class="card shadow">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold text-secondary">ID:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.IdEstandar)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Nombre:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Descripción:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Descripcion)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Estado:</dt>
+                <dd class="col-sm-9">
+                    @if (Model.Estado == "Completado")
+                    {
+                        <span class="badge bg-success">Completado</span>
+                    }
+                    else if (Model.Estado == "En Proceso")
+                    {
+                        <span class="badge bg-info text-white">En Proceso</span>
+                    }
+                    else if (Model.Estado == "Pendiente")
+                    {
+                        <span class="badge bg-danger">Pendiente</span>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.Estado)
+                    }
+                </dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Fecha de Creación:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaCreacion)</dd>
+
+                <dt class="col-sm-3 fw-bold text-secondary">Fecha Límite:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaLimite)</dd>
+            </dl>
+        </div>
+
+        <div class="card-footer text-end">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.IdEstandar }, new { @class = "btn btn-primary me-2" })
+            @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>

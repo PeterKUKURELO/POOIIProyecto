@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model GestionAcademica.Models.ResponsableEstandar
+
+<div class="container mt-5">
+    <!-- Encabezado -->
+    <div class="text-center mb-4">
+        <h2 class="text-primary fw-bold">@(ViewBag.Title ?? "Crear Responsable de Estándar")</h2>
+        <p class="text-muted">Complete el formulario para asignar un usuario a un estándar de calidad.</p>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Tarjeta contenedora -->
+        <div class="card shadow-lg rounded">
+            <div class="card-body">
+                <!-- Mensaje de validación -->
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <!-- Campo: ID Responsable Estándar (Readonly) -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.IdRespEstandar, "ID Responsable", new { @class = "form-label fw-bold" })
+                    @Html.TextBoxFor(model => model.IdRespEstandar, new { @class = "form-control", @readonly = "readonly", placeholder = "Generado automáticamente" })
+                </div>
+
+                <!-- Campo: Estándar Relacionado -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.IdEstandar, "Estándar Relacionado", new { @class = "form-label fw-bold" })
+                    @Html.DropDownListFor(model => model.IdEstandar, (SelectList)ViewBag.lstEstandares, "Seleccione un estándar", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.IdEstandar, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Campo: Usuario Relacionado -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.IdUsuario, "Usuario Relacionado", new { @class = "form-label fw-bold" })
+                    @Html.DropDownListFor(model => model.IdUsuario, (SelectList)ViewBag.lstUsuarios, "Seleccione un usuario", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.IdUsuario, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success px-4 fw-bold">Guardar</button>
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary ms-2 px-4 fw-bold" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

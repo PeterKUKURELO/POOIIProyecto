@@ -1,0 +1,48 @@
+﻿@model GestionAcademica.Models.IndicadorDesempeno
+
+<div class="container mt-5">
+    <!-- Encabezado -->
+    <div class="text-center mb-4">
+        <h2 class="text-danger fw-bold">¿Estás seguro de eliminar este indicador?</h2>
+        <p class="text-muted">Esta acción no se puede deshacer.</p>
+    </div>
+
+    <!-- Tarjeta con detalles del indicador -->
+    <div class="card shadow rounded">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <!-- ID del Indicador -->
+                <dt class="col-sm-4 fw-bold text-secondary">ID del Indicador:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.IdIndicador)</dd>
+
+                <!-- ID del Estándar -->
+                <dt class="col-sm-4 fw-bold text-secondary">Estándar Asociado:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.IdEstandar)</dd>
+
+                <!-- Nombre del Indicador -->
+                <dt class="col-sm-4 fw-bold text-secondary">Nombre del Indicador:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                <!-- Resultado Actual -->
+                <dt class="col-sm-4 fw-bold text-secondary">Resultado Actual:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.ResultadoActual)</dd>
+
+                <!-- Fecha de Actualización -->
+                <dt class="col-sm-4 fw-bold text-secondary">Fecha de Actualización:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.FechaActualizacion)</dd>
+            </dl>
+        </div>
+
+        <!-- Pie de la tarjeta con botones -->
+        <div class="card-footer text-end">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger fw-bold me-2">
+                    <i class="bi bi-trash"></i> Eliminar
+                </button>
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary fw-bold" })
+            }
+        </div>
+    </div>
+</div>

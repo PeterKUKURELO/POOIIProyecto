@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<GestionAcademica.Models.ResponsableEstandar>
+
+<div class="container mt-5">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary fw-bold">Lista de Responsables de Estándares</h2>
+        @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-success fw-bold" })
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover shadow-sm rounded overflow-hidden">
+            <thead class="table-dark">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.IdRespEstandar)</th>
+                    @*<th>@Html.DisplayNameFor(model => model.IdEstandar)</th>*@
+                    <th>@Html.DisplayNameFor(model => model.EstandarCalidad)</th>
+                    @*<th>@Html.DisplayNameFor(model => model.IdUsuario)</th>*@
+                    <th>@Html.DisplayNameFor(model => model.Usuario)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <!-- ID Responsable Estándar -->
+                        <td>@Html.DisplayFor(modelItem => item.IdRespEstandar)</td>
+
+                        <!-- ID Estándar -->
+                        @*<td>@Html.DisplayFor(modelItem => item.IdEstandar)</td>*@
+
+                        <!-- Nombre del Estándar -->
+                        <td>@Html.DisplayFor(modelItem => item.EstandarCalidad.Nombre)</td>
+
+                        <!-- ID Usuario -->
+                        @*<td>@Html.DisplayFor(modelItem => item.IdUsuario)</td>*@
+
+                        <!-- Nombre del Usuario -->
+                        <td>@Html.DisplayFor(modelItem => item.Usuario.Nombre)</td>
+
+                        <!-- Botones de Acción -->
+                        <td>
+                            <div class="btn-group" role="group">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.IdRespEstandar }, new { @class = "btn btn-sm btn-warning" })
+                                @Html.ActionLink("Detalles", "Details", new { id = item.IdRespEstandar }, new { @class = "btn btn-sm btn-info mx-1" })
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdRespEstandar }, new { @class = "btn btn-sm btn-danger" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

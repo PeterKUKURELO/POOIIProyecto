@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //deshabilita la plantilla principal
+    //Layout = null;
+}
+
+@model GestionAcademica.Models.IndicadorDesempeno
+
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="text-center mb-4">
+        <h2 class="text-primary fw-bold">Crear Indicador de Desempeño</h2>
+        <p class="text-muted">Rellene el siguiente formulario para agregar un nuevo indicador.</p>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Tarjeta del formulario -->
+        <div class="card shadow-sm rounded">
+            <div class="card-body">
+                <!-- Mensaje de validación -->
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <!-- Campo: IdEstandar (DropDownList) -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.IdEstandar, "Estandar Relacionado", new { @class = "form-label fw-bold" })
+                    @Html.DropDownListFor(model => model.IdEstandar, (SelectList)ViewBag.lstEstandares, "Seleccione el estándar", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.IdEstandar, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Campo: Nombre -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Nombre, "Nombre del Indicador", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese el nombre del indicador" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Campo: Resultado Actual -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.ResultadoActual, "Resultado Actual", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.ResultadoActual, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese el resultado actual" } })
+                    @Html.ValidationMessageFor(model => model.ResultadoActual, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Campo: Fecha de Actualización -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.FechaActualizacion, "Fecha de Actualización", new { @class = "form-label fw-bold" })
+                    @Html.EditorFor(model => model.FechaActualizacion, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.FechaActualizacion, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="text-end">
+                    <input type="submit" value="Guardar" class="btn btn-success px-4" />
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary ms-2 px-4" })
+                </div>
+            </div>
+        </div>
+    }
+</div>

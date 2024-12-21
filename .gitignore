@@ -1,0 +1,3 @@
+# Ignorar archivos y carpetas de Visual Studio
+.vs/
+*.sql

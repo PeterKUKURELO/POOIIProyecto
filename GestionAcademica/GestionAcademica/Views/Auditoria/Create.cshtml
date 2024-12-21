@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //deshabilita la plantilla principal
+    //Layout = null;
+}
+
+@model GestionAcademica.Models.Auditoria
+
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="text-center mb-4">
+        <h2 class="text-primary fw-bold">Crear Auditoría</h2>
+        <p class="text-muted">Complete el siguiente formulario para agregar una nueva auditoría.</p>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Tarjeta del formulario -->
+        <div class="card shadow-sm rounded">
+            <div class="card-body">
+                <!-- Mensaje de validación -->
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <!-- Campo: IdEstandar (DropDownList) -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.IdEstandar, "Estándar Relacionado", new { @class = "form-label fw-bold" })
+                    @Html.DropDownListFor(model => model.IdEstandar, (SelectList)ViewBag.lstEstandares, "Seleccione el estándar", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.IdEstandar, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Campo: Observaciones -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Observaciones, "Observaciones", new { @class = "form-label fw-bold" })
+                    @Html.TextAreaFor(model => model.Observaciones, 4, 50, new { @class = "form-control", placeholder = "Ingrese las observaciones de la auditoría" })
+                    @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Campo: Fecha de Auditoría -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.FechaAuditoria, "Fecha de Auditoría", new { @class = "form-label fw-bold" })
+                    @Html.TextBoxFor(model => model.FechaAuditoria, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(model => model.FechaAuditoria, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Campo: Resultado -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Resultado, "Resultado", new { @class = "form-label fw-bold" })
+                    @Html.DropDownListFor(model => model.Resultado, (SelectList)ViewBag.lstResultado, "Seleccione el resultado", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(model => model.Resultado, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success px-4 fw-bold">Guardar</button>
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary ms-2 px-4 fw-bold" })
+                </div>
+            </div>
+        </div>
+    }
+</div>

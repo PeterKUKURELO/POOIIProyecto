@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Panel de Administración";
+}
+
+@model GestionAcademica.Models.Usuario
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container mt-5">
+        <h2 class="text-primary mb-4">Crear Usuario</h2>
+
+        <div class="card shadow">
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "col-sm-2 col-form-label fw-bold" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese el nombre del usuario" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group row mt-3">
+                    @Html.LabelFor(model => model.CodUsuario, htmlAttributes: new { @class = "col-sm-2 col-form-label fw-bold" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.CodUsuario, new { htmlAttributes = new { @class = "form-control", placeholder = "El código se generará automáticamente" } })
+                        @Html.ValidationMessageFor(model => model.CodUsuario, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                <div class="form-group row mt-3">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-sm-2 col-form-label fw-bold" })
+                    <div class="col-sm-10 ">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese una contraseña" } })
+                        
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row mt-3">
+                    @Html.LabelFor(model => model.Rol, htmlAttributes: new { @class = "col-sm-2 col-form-label fw-bold" })
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(model => model.IdRol, (SelectList)ViewBag.lstRoles, "Seleccione el rol", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.IdRol, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer text-end">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-secondary ms-2" })
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function togglePasswordVisibility() {
+        const passwordField = document.querySelector('input[name="Password"]');
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+    }
+</script>
